@@ -12,6 +12,13 @@ val ktor_version = "2.2.4"
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://maven.pkg.github.com/restfql/ktor-restfql")
+        credentials {
+            username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
+            password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
+        }
+    }
 }
 
 dependencies {
@@ -30,6 +37,7 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
     implementation("org.slf4j:slf4j-simple:2.0.7")
+    implementation("com.restfql:ktor-restfql:1.0.0")
 }
 
 tasks.test {
